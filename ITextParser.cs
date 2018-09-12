@@ -20,7 +20,6 @@ namespace NsnApp
 
     public interface IFileWriter
     {
-        //void WriteDataRows(ICollection<DataRow> outputRows,string outputFile);
         void PrepareOutputForSaving(ICollection<DataRow> outputRows);
         void WriteOutputFile(string outputFile);
     }

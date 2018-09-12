@@ -25,9 +25,9 @@ namespace NsnApp
 
         public void BuildOutputColumns(DataTable source, string columnsToGroup)
         {
-            source.Columns.Add("advertiser",typeof(string)); 
-            source.Columns.Add("ad_spend",typeof(string));  
-            source.Columns.Add("publisher",typeof(string));    
+            string[] columnNames = columnsToGroup.Split("|");
+            foreach(string columnName in columnNames)
+                source.Columns.Add(columnName,typeof(string));              
         }
     }
 }

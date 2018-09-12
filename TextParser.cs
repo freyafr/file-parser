@@ -11,7 +11,12 @@ namespace NsnApp{
                 {
                     if(row.Table.Columns[i].DataType==typeof(double))
                     {
-                        row[i]=double.Parse(values[i],CultureInfo.InvariantCulture);
+                        if (!string.IsNullOrEmpty(values[i]))
+                        {
+                            double result;
+                            if(double.TryParse(values[i],NumberStyles.Any,CultureInfo.InvariantCulture,out result))
+                                row[i]=result;  
+                        }                      
                     }
                     else
                         row[i]=values[i];
