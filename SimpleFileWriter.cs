@@ -30,6 +30,7 @@ namespace NsnApp
 
         public void WriteOutputFile(string outputFile)
         {
+            if(_outputRows.Count>0)
             using(var writer = new StreamWriter(outputFile,false,Encoding.UTF8))
             {
                 var headerstring = string.Join(',',_outputRows.First().Table.Columns.Cast<DataColumn>().ToArray().Select(s=>s.ColumnName));

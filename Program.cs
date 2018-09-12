@@ -12,9 +12,10 @@ namespace NsnApp
         static void Main(string[] args)
         {
             var processor = new DataProcessor("input.csv","output.csv",
-                new SingleStringReader(),"advertiser|publisher",
+                "advertiser|publisher",
                 new AutoColumnBuilder(),
-                new SimpleFileWriter());
+                new SimpleFileWriter(),
+                new TextParser());
 
             processor.ProcessFile();
             Console.WriteLine("It is done!");
