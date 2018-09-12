@@ -75,7 +75,8 @@ namespace NsnApp
                 resultRows.Add(outputRow);
                 for (int i = 0; i < outputTable.Columns.Count; i++)
                 {
-                    outputRow[i]= inputRow[outputTable.Columns[i].ColumnName];
+                    if (inputRow.Table.Columns.Contains(outputTable.Columns[i].ColumnName))
+                        outputRow[i]= inputRow[outputTable.Columns[i].ColumnName];
                 }
             
             return resultRows;
