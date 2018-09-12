@@ -6,10 +6,11 @@ namespace NsnApp
 {
     public interface IFileReader{
             ICollection<DataRow> ReadDataBuffered(DataTable inputTable,StreamReader fileReader, int buffer = 0);
+            string[]ParseString(string fileLine);
     }
 
     public interface IColumnBuilder{
-        void BuildInputColumns(DataTable source);
+        DataTable BuildInputColumns(string headerLine, string[] testValue);
         void BuildOutputColumns(DataTable source,string columnsToGroup);
     }
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,8 @@ namespace NsnApp
                 var rowsFound = _outputRows.Where(r=>r["advertiser"].ToString()==row["advertiser"].ToString()).FirstOrDefault();
                 if (rowsFound!=null)
                 {
-                    rowsFound["ad_spend"] = Convert.ToDouble(rowsFound["ad_spend"])+Convert.ToDouble(row["ad_spend"]);
+                    rowsFound["ad_spend"] = double.Parse(rowsFound["ad_spend"].ToString(),CultureInfo.InvariantCulture)+
+                        double.Parse(row["ad_spend"].ToString(),CultureInfo.InvariantCulture);
                 }
                 else
                 {

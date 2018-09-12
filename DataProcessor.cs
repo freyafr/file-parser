@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 
 namespace NsnApp
 {
@@ -25,17 +26,37 @@ namespace NsnApp
             
         }
         public void ProcessFile()
-        {
-            DataTable table = new DataTable(); 
+        {            
             DataTable outputTable = new DataTable();
             if (File.Exists(_inputFileName))
                 using(var inputFile = new FileStream(_inputFileName, FileMode.OpenOrCreate))
                 { 
                     using(var reader = new StreamReader(inputFile))
                     {
-                        reader.ReadLine();
-                        _columnBuilder.BuildInputColumns(table); 
-                        _columnBuilder.BuildOutputColumns(outputTable,_groupCriteria); 
+                        string headerLine = reader.ReadLine();
+                        string[] values = _reader.ParseString(reader.ReadLine());
+                        DataTable table = _columnBuilder.BuildInputColumns(headerLine,values); 
+                        _columnBuilder.BuildOutputColumns(outputTable,_groupCriteria);    
+                        if (values.Length>0&&values.Any(v=>!string.IsNullOrEmpty(v)))
+                        {
+                            //temporary copy/paste
+                            /// TODO: remove later
+                            var resultRows = new List<DataRow>();
+                            DataRow row = table.NewRow();
+                            resultRows.Add(row);
+                            for (int i = 0; i < values.Length; i++)
+                            {
+                                if(row.Table.Columns[i].DataType==typeof(double))
+                                {
+                                    row[i]=values[i].Replace(".",",");
+                                }
+                                else
+                                    row[i]=values[i];
+                            }
+                            ICollection<DataRow> rowsToWrite = FormOutputRow(resultRows,outputTable);
+                            //Write agregated Data to TempFile or 
+                            _writer.PrepareOutputForSaving(rowsToWrite);
+                        }                    
                         
                         while(!reader.EndOfStream)
                         {
