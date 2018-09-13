@@ -14,7 +14,7 @@ namespace NsnApp
             var processor = new DataProcessor("input.csv","output.csv",
                 "advertiser|ad_spend|publisher",
                 new AutoColumnBuilder(),
-                new SimpleFileWriter(),
+                new SimpleFileWriter(new DataGroupingByAdv()),
                 new TextParser());
 
             processor.ProcessFile();

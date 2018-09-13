@@ -12,6 +12,12 @@ namespace NsnApp
         
     }
 
+    public interface IDataGrouping
+    {
+        bool ProperStringFound(DataRow source, DataRow dest);
+        void GroupFields(DataRow source, DataRow dest);
+    }
+
     public interface IColumnBuilder
     {
         void BuildInputColumns(DataTable source, string headerLine, string[] testValue);

@@ -7,19 +7,25 @@ using System.Linq;
 using System.Text;
 
 namespace NsnApp
-{
+{  
+
     public class SimpleFileWriter : IFileWriter
     {
-        private ICollection<DataRow> _outputRows = new List<DataRow>();
-        public void PrepareOutputForSaving(ICollection<DataRow> outputRows)
+        private IDataGrouping _grouper;
+        protected ICollection<DataRow> _outputRows = new List<DataRow>();
+
+        public SimpleFileWriter(IDataGrouping grouper)
         {
-            foreach(DataRow row in outputRows)
+            _grouper = grouper;
+        }
+        public void PrepareOutputForSaving(ICollection<DataRow> outputRowsNotGrouped)
+        {
+            foreach(DataRow row in outputRowsNotGrouped)
             {
-                var rowsFound = _outputRows.Where(r=>r["advertiser"].ToString()==row["advertiser"].ToString()).FirstOrDefault();
-                if (rowsFound!=null)
+                var rowFound = _outputRows.Where(r=>_grouper.ProperStringFound(r,row)).FirstOrDefault();
+                if (rowFound!=null)
                 {
-                    rowsFound["ad_spend"] = double.Parse(rowsFound["ad_spend"].ToString(),CultureInfo.InvariantCulture)+
-                        double.Parse(row["ad_spend"].ToString(),CultureInfo.InvariantCulture);
+                    _grouper.GroupFields(rowFound,row);
                 }
                 else
                 {
