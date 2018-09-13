@@ -11,19 +11,14 @@ namespace NsnApp
 {
     public class DataProcessor{
 
-        private string _inputFileName;
-        private string _outputFileName;
-        private string _groupCriteria;
-        private IColumnBuilder _columnBuilder;
-        private IFileWriter _writer;
-
-        private ITextParser _textParser;
-        public DataProcessor(string inputFileName,string outputFileName,string groupCriteria,
+        private readonly string _inputFileName;  
+        private readonly IColumnBuilder _columnBuilder;
+        private readonly IFileWriter _writer;
+        private readonly ITextParser _textParser;
+        public DataProcessor(string inputFileName,
         IColumnBuilder columnBuilder, IFileWriter writer,ITextParser textParser)
         {
-            _inputFileName = inputFileName;
-            _outputFileName = outputFileName;            
-            _groupCriteria = groupCriteria;
+            _inputFileName = inputFileName; 
             _columnBuilder = columnBuilder;
             _writer = writer;
             _textParser = textParser;            
@@ -48,7 +43,7 @@ namespace NsnApp
                             {
                                 _columnBuilder.BuildInputColumns(table,headerLine,values); 
 
-                                _columnBuilder.BuildOutputColumns(outputTable,_groupCriteria); 
+                                _columnBuilder.BuildOutputColumns(outputTable); 
                                 firstValueFound =true; 
                             }
                             DataRow resultRow = _textParser.FillDataFromString(table.NewRow(),values);
@@ -60,7 +55,7 @@ namespace NsnApp
                     }  
                 } 
                     
-                _writer.WriteOutputFile(_outputFileName);  
+                _writer.WriteOutputFile();  
             }   
             else
             {

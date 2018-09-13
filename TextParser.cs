@@ -1,6 +1,7 @@
 using System;
 using System.Data;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace NsnApp{
     public class TextParser : ITextParser
@@ -26,11 +27,11 @@ namespace NsnApp{
 
         public string[] ParseFileLine(string fileLine)
         {
-            if (fileLine==null)
+            if (fileLine == null)
                 return new string[0];
-            string[] dataRowStringArray =  fileLine.Split(",");//Regex.Matches(fileReader.ReadLine(),"(\"(.*?)\"(,|$))").Select(s=>s.Groups[2].Value).ToArray();
+            string[] dataRowStringArray =  Regex.Split(fileLine,",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
             for(int i=0;i<dataRowStringArray.Length;i++)
-                dataRowStringArray[i]=dataRowStringArray[i].Replace("\"","");
+                dataRowStringArray[i]=dataRowStringArray[i].Trim('\"');
             return dataRowStringArray;
         }
     }

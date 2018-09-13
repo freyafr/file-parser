@@ -21,12 +21,12 @@ namespace NsnApp
     public interface IColumnBuilder
     {
         void BuildInputColumns(DataTable source, string headerLine, string[] testValue);
-        void BuildOutputColumns(DataTable source,string columnsToGroup);
+        void BuildOutputColumns(DataTable source);
     }
 
     public interface IFileWriter
     {
         void PrepareOutputForSaving(ICollection<DataRow> outputRows);
-        void WriteOutputFile(string outputFile);
+        void WriteOutputFile();
     }
 }

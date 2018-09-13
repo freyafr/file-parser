@@ -5,10 +5,12 @@ namespace NsnApp
 {
     public class AutoColumnBuilder : IColumnBuilder
     {
-        private ColumnTypeResolverBase _resolver;
-        public AutoColumnBuilder()
+        private readonly ColumnTypeResolverBase _resolver;
+        private readonly string _columnsToGroup;
+        public AutoColumnBuilder(string columnsToGroup)
         {            
             _resolver = new NumericColumnTypeResolver(new StringColumnTypeResolver(null));
+            _columnsToGroup = columnsToGroup;
         }
 
         public void BuildInputColumns(DataTable source,string headerLine, string[] testValues)
@@ -23,9 +25,9 @@ namespace NsnApp
             }
         }
 
-        public void BuildOutputColumns(DataTable source, string columnsToGroup)
+        public void BuildOutputColumns(DataTable source)
         {
-            string[] columnNames = columnsToGroup.Split("|");
+            string[] columnNames = _columnsToGroup.Split("|");
             foreach(string columnName in columnNames)
                 source.Columns.Add(columnName,typeof(string));              
         }

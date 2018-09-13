@@ -12,11 +12,14 @@ namespace NsnApp
     public class SimpleFileWriter : IFileWriter
     {
         private IDataGrouping _grouper;
-        protected ICollection<DataRow> _outputRows = new List<DataRow>();
+        private ICollection<DataRow> _outputRows = new List<DataRow>();
 
-        public SimpleFileWriter(IDataGrouping grouper)
+        private string _outputFile;
+
+        public SimpleFileWriter(IDataGrouping grouper,string outputFile)
         {
             _grouper = grouper;
+            _outputFile = outputFile;
         }
         public void PrepareOutputForSaving(ICollection<DataRow> outputRowsNotGrouped)
         {
@@ -34,10 +37,10 @@ namespace NsnApp
             }
         }
 
-        public void WriteOutputFile(string outputFile)
+        public void WriteOutputFile()
         {
             if(_outputRows.Count>0)
-            using(var writer = new StreamWriter(outputFile,false,Encoding.UTF8))
+            using(var writer = new StreamWriter(_outputFile,false,Encoding.UTF8))
             {
                 var headerstring = string.Join(',',_outputRows.First().Table.Columns.Cast<DataColumn>().ToArray().Select(s=>s.ColumnName));
                         writer.WriteLine(headerstring);

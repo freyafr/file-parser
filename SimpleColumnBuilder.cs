@@ -12,7 +12,7 @@ namespace NsnApp
             source.Columns.Add("publisher",typeof(string));            
         }
 
-        public void BuildOutputColumns(DataTable source, string columnsToGroup)
+        public void BuildOutputColumns(DataTable source)
         {
             source.Columns.Add("advertiser",typeof(string)); 
             source.Columns.Add("ad_spend",typeof(double));  
