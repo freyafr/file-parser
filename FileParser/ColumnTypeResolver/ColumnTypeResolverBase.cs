@@ -1,6 +1,6 @@
 using System;
 
-namespace NsnApp.ColumnTypeReolver
+namespace FileParser.ColumnTypeReolver
 {
     public abstract class ColumnTypeResolverBase
     {

@@ -1,6 +1,6 @@
 using System.Data;
 
-namespace NsnApp
+namespace FileParser
 {
     public class SimpleColumnBuilder : IColumnBuilder
     {

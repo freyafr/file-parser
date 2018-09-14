@@ -1,7 +1,8 @@
 using System.Data;
 using System.Globalization;
 
-namespace NsnApp{
+namespace FileParser
+{
     public class DataGroupingByAdv : IDataGrouping
     {
         public virtual bool ProperStringFound(DataRow source, DataRow dest)

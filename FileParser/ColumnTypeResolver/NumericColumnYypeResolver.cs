@@ -1,7 +1,7 @@
 using System;
 using System.Globalization;
 
-namespace NsnApp.ColumnTypeReolver
+namespace FileParser.ColumnTypeReolver
 {
     public class NumericColumnTypeResolver : ColumnTypeResolverBase
     {

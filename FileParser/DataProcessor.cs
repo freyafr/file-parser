@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace NsnApp
+namespace FileParser
 {
     public class DataProcessor{
 

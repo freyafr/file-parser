@@ -3,7 +3,8 @@ using System.Data;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace NsnApp{
+namespace FileParser
+{
     public class TextParser : ITextParser
     {
         public DataRow FillDataFromString(DataRow row,string[] values)

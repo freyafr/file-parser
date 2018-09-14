@@ -1,7 +1,7 @@
 using System.Data;
-using NsnApp.ColumnTypeReolver;
+using FileParser.ColumnTypeReolver;
 
-namespace NsnApp
+namespace FileParser
 {
     public class AutoColumnBuilder : IColumnBuilder
     {
@@ -27,7 +27,7 @@ namespace NsnApp
 
         public void BuildOutputColumns(DataTable source)
         {
-            string[] columnNames = _columnsToGroup.Split("|");
+            string[] columnNames = _columnsToGroup.Split('|');
             foreach(string columnName in columnNames)
                 source.Columns.Add(columnName,typeof(string));              
         }
