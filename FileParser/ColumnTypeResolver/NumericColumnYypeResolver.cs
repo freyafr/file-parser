@@ -6,6 +6,8 @@ namespace FileParser.ColumnTypeReolver
     public class NumericColumnTypeResolver : ColumnTypeResolverBase
     {
         public NumericColumnTypeResolver(ColumnTypeResolverBase next):base(next){}
+
+        public NumericColumnTypeResolver():base(){}
         public override Type GetTypeFromValue(string valueToCheckType)
         {
             double result;

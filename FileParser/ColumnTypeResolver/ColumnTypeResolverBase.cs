@@ -4,16 +4,18 @@ namespace FileParser.ColumnTypeReolver
 {
     public abstract class ColumnTypeResolverBase
     {
-        private ColumnTypeResolverBase _next;
+        public ColumnTypeResolverBase Next {get;set;}
+
+        public ColumnTypeResolverBase(){}
         public ColumnTypeResolverBase(ColumnTypeResolverBase next)
         {
-            _next = next;
+            Next = next;
         }
 
         protected Type MoveNext(string valueToCheckType)
         {
-            if (_next!=null)
-            return _next.GetTypeFromValue(valueToCheckType);
+            if (Next!=null)
+            return Next.GetTypeFromValue(valueToCheckType);
             return typeof(string);
         }
 

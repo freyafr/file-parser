@@ -9,7 +9,7 @@ namespace FileParser
         private readonly string _columnsToGroup;
         public AutoColumnBuilder(string columnsToGroup)
         {            
-            _resolver = new NumericColumnTypeResolver(new StringColumnTypeResolver(null));
+            _resolver = new NumericColumnTypeResolver(new StringColumnTypeResolver());
             _columnsToGroup = columnsToGroup;
         }
 
