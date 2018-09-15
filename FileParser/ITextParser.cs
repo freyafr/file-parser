@@ -21,7 +21,7 @@ namespace FileParser
     public interface IColumnBuilder
     {
         void BuildInputColumns(DataTable source, string headerLine, string[] testValue);
-        void BuildOutputColumns(DataTable source);
+        void BuildOutputColumns(DataTable source,DataTable inputTable);
     }
 
     public interface IFileWriter

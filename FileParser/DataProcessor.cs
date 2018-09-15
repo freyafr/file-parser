@@ -43,7 +43,7 @@ namespace FileParser
                             {
                                 _columnBuilder.BuildInputColumns(table,headerLine,values); 
 
-                                _columnBuilder.BuildOutputColumns(outputTable); 
+                                _columnBuilder.BuildOutputColumns(outputTable, table); 
                                 firstValueFound =true; 
                             }
                             DataRow resultRow = _textParser.FillDataFromString(table.NewRow(),values);

@@ -12,7 +12,7 @@ namespace FileParser
             source.Columns.Add("publisher",typeof(string));            
         }
 
-        public void BuildOutputColumns(DataTable source)
+        public void BuildOutputColumns(DataTable source,DataTable inputTable)
         {
             source.Columns.Add("advertiser",typeof(string)); 
             source.Columns.Add("ad_spend",typeof(double));  

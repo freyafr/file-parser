@@ -25,11 +25,16 @@ namespace FileParser
             }
         }
 
-        public void BuildOutputColumns(DataTable source)
+        public void BuildOutputColumns(DataTable source,DataTable inputTable)
         {
             string[] columnNames = _columnsToGroup.Split('|');
             foreach(string columnName in columnNames)
-                source.Columns.Add(columnName,typeof(string));              
+            {
+                if (inputTable.Columns.Contains(columnName))
+                    source.Columns.Add(columnName,inputTable.Columns[columnName].DataType);   
+                else
+                    source.Columns.Add(columnName,typeof(string));      
+            }        
         }
     }
 }

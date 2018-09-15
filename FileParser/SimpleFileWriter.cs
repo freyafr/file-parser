@@ -50,7 +50,8 @@ namespace FileParser
 
                 foreach (DataRow row in OutputRows)
                 {
-                    var outputRow = string.Join(",", row.ItemArray.Select(item=>string.Format("\"{0}\"",item)));
+                    var outputRow = string.Join(",", row.ItemArray.Select(item=>string.Format("\"{0}\"",
+                                                    item is double?((double)item).ToString(CultureInfo.InvariantCulture) :item.ToString())));
                     writer.WriteLine(outputRow);
                     writer.Flush();
                 }
