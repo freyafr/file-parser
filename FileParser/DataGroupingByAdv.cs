@@ -16,8 +16,7 @@ namespace FileParser
         {
             if (source.Table.Columns.Contains("ad_spend")||dest.Table.Columns.Contains("ad_spend"))
                 
-            source["ad_spend"] = double.Parse(source["ad_spend"].ToString(),CultureInfo.CurrentCulture)+
-                        double.Parse(dest["ad_spend"].ToString(),CultureInfo.CurrentCulture);
+            source["ad_spend"] = (double)source["ad_spend"] + (double)dest["ad_spend"];
         }
     }
 

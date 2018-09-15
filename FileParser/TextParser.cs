@@ -16,9 +16,13 @@ namespace FileParser
                         if (!string.IsNullOrEmpty(values[i]))
                         {
                             double result;
-                            if(double.TryParse(values[i],NumberStyles.Any,CultureInfo.InvariantCulture,out result))
+                            if(double.TryParse(values[i].Replace(",","."),NumberStyles.Any,CultureInfo.InvariantCulture,out result))
                                 row[i]=result;  
-                        }                      
+                            else
+                                row[i]=0;
+                        } 
+                        else
+                            row[i]=0;                     
                     }
                     else
                         row[i]=values[i];

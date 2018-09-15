@@ -11,10 +11,12 @@ namespace FileParser
 
     public class SimpleFileWriter : IFileWriter
     {
-        private IDataGrouping _grouper;
-        private ICollection<DataRow> _outputRows = new List<DataRow>();
+        private readonly IDataGrouping _grouper;
+        
 
-        private string _outputFile;
+        private readonly string _outputFile;
+
+        public ICollection<DataRow> OutputRows{get;private set;} = new List<DataRow>();
 
         public SimpleFileWriter(IDataGrouping grouper,string outputFile)
         {
@@ -25,28 +27,28 @@ namespace FileParser
         {
             foreach(DataRow row in outputRowsNotGrouped)
             {
-                var rowFound = _outputRows.Where(r=>_grouper.ProperStringFound(r,row)).FirstOrDefault();
+                var rowFound = OutputRows.Where(r=>_grouper.ProperStringFound(r,row)).FirstOrDefault();
                 if (rowFound!=null)
                 {
                     _grouper.GroupFields(rowFound,row);
                 }
                 else
                 {
-                    _outputRows.Add(row);
+                    OutputRows.Add(row);
                 }
             }
         }
 
         public void WriteOutputFile()
         {
-            if(_outputRows.Count>0)
+            if(OutputRows.Count>0)
             using(var writer = new StreamWriter(_outputFile,false,Encoding.UTF8))
             {
-                var headerstring = string.Join(",",_outputRows.First().Table.Columns.Cast<DataColumn>().ToArray().Select(s=>s.ColumnName));
+                var headerstring = string.Join(",",OutputRows.First().Table.Columns.Cast<DataColumn>().ToArray().Select(s=>s.ColumnName));
                         writer.WriteLine(headerstring);
                         writer.Flush();
 
-                foreach (DataRow row in _outputRows)
+                foreach (DataRow row in OutputRows)
                 {
                     var outputRow = string.Join(",", row.ItemArray.Select(item=>string.Format("\"{0}\"",item)));
                     writer.WriteLine(outputRow);

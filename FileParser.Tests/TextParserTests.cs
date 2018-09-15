@@ -33,5 +33,17 @@ namespace FileParser.Tests
             Assert.IsTrue((double)row[1]==1.2,"1 column is set wrong: has to be 1.2 got {0}",row[1]);
             Assert.IsTrue(row[2].ToString()=="v\"2\"","2 column is set wrong");
         }
+
+        [TestMethod]
+        public void FillDataFromStringOkWithDot()
+        {
+            var testTable = GetDataTableTestData.GetTestDataTableWitGoodData();
+            var values = new string[3]{"v1","1.2","v2\""};
+            DataRow row = testTable.NewRow();
+            _parser.FillDataFromString(row,values);
+            Assert.IsTrue(row[0].ToString()=="v1","0 column is set wrong");
+            Assert.IsTrue((double)row[1]==1.2,"1 column is set wrong: has to be 1.2 got {0}",row[1]);
+            Assert.IsTrue(row[2].ToString()=="v2\"","2 column is set wrong");
+        }
     }
 }
